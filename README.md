@@ -3,6 +3,8 @@
 # FDLocalizeder
 Localization language automatic import tool.
 
+> 修改内容，去掉变量名的双引号，修改跳过无效行及其他不标准文档格式。
+
 ### [⛳️ 安装包下载点击这里 ⛳️](https://github.com/xaochua/FDLocalizeder/releases)
 
 #### 【Instructions】
