@@ -1,0 +1,13 @@
+
+"FDLocalizeder_Excel模板" = "说明：\n\n第一列code不能为空，第一排语言标识不能为空。\n\n语言标识可以通过项目里的Languages.plist和LanguageBindFile.plist进行配置";
+"This is a code" = "从肩膀的最高点一直量到衣服的下摆。一定要光着脚，双脚并拢站直。";
+"这是一个code(不能为空)" = "这是一个code";
+"app_note_explaination1" = "แผนภูมิขนาดนี้ใช้เพื่อการอ้างอิงเท่านั้น";
+"men_screenshot" = "当前界面涉及隐私内容，不允许截屏";
+"men_backup" = "尚未备份助记词";
+"men_backupInfo" = "如未备份助记词，当出现设备丢失、未知硬件故障、卸载App、清除App数据等情况，均会使您永久失去该钱包及所有资产，且不可恢复。";
+"men_buckupnow" = "立即备份";
+"men_backuporder" = "请按顺序选择对应的助记词";
+"men_error" = "无效助记词，请重新输入";
+"location" = "ONTO请求获取您的位置信息";
+"updateinfo" = "此版本新增功能：\n  \n  1.接入Fantom链；\n  2.接入Gnosis链；\n  3.新增助记词防截屏功能；\n  4.新增助记词未备份提示功能；\n  5.优化验证助记词功能；\n  6.新增助记词词库智能提示。";

@@ -1,0 +1,15 @@
+
+/* Class = "UILabel"; text = "第一条本地化文本：\n(无本地化则使用系统默认语言)"; ObjectID = "59j-uM-5jF"; */
+"59j-uM-5jF.text" = "第一条本地化文本：\n(无本地化则使用系统默认语言)";
+
+/* Class = "UILabel"; text = "当前语言是："; ObjectID = "HO6-bc-kNe"; */
+"HO6-bc-kNe.text" = "当前语言是：";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "Hh0-iW-3Fe"; */
+"Hh0-iW-3Fe.text" = "Label";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "O0r-dA-iF1"; */
+"O0r-dA-iF1.text" = "Label";
+
+/* Class = "UILabel"; text = "FDLocalizederTest"; ObjectID = "QPI-WY-QiC"; */
+"QPI-WY-QiC.text" = "FDLocalizederTest";

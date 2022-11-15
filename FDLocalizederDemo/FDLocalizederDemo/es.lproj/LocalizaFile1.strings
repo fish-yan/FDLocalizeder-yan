@@ -1,0 +1,26 @@
+/* 
+  LocalizaFile1.strings
+  FDLocalizederDemo
+
+  Created by chuxiao on 2018/12/7.
+  Copyright © 2018年 chuxiao. All rights reserved.
+*/
+
+/**
+ 这是一个注释
+
+ ***也可以通过双斜杠(//)添加注释***
+ ***也可以不添加注释***
+ */
+"FDLocalizeder_Excel模板" = "Longitud";
+"This is a code" = "Mida desde el punto más alto de su hombro hasta el dobladillo del vestido. Asegúrese de medir con los pies descalzos y estar de pie con los pies juntos.";
+"这是一个code(不能为空)" = "Nota:";
+"this_language_is" = "这是西班牙语";
+"men_screenshot" = "No se puede hacer la captura de pantalla porque muestra información privada.";
+"men_backup" = "La frase mnemotécnica no está respaldada.";
+"men_backupInfo" = "Si no tienes una copia de seguridad de tú frase mnemónica, puedes perder tu billetera y todos los activos vinculados a ella. Si no la tienes y pierdes el dispositivo, tienes un fallo de hardware desconocido, desinstalas la aplicación, borras los datos de la aplicación o te encuentras con otras situaciones irreversibles, no podrás recuperar tus activos.";
+"men_buckupnow" = "Hacer el respaldo ahora.";
+"men_backuporder" = "Selecciona las palabras de tú frase mnemotecnia en el orden correcto.";
+"men_error" = "Frase mnemotecnia incorrecta, intentalo de nuevo.";
+"location" = "ONTO solicita acceder a tu ubicación.";
+"updateinfo" = "Novedades de la actualización:\n 1. Se ha añadido soporte para la cadena Fantom.\n 2. Se ha añadido soporte para la cadena Gnosis.\n 3. Prevención de capturas de pantalla de la frase mnemónica.\n 4. Añadido mensaje de alerta para la copia de seguridad de la frase mnemónica.\n 5. Mejorado el sistema de verificación de la frase mnemónica.\n 6. Añadido sugerencias en la biblioteca de frases mnemónicas.";

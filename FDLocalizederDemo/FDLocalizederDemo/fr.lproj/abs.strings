@@ -1,0 +1,15 @@
+/* 
+  Localizable.strings
+  FDLocalizederDemo
+
+  Created by 薛焱 on 2022/10/8.
+  Copyright © 2022 chuxiao. All rights reserved.
+*/
+"men_screenshot" = "Can\'t take screenshot due to private information contained on this tab";
+"men_backup" = "Mnemonic phrase isn\'t backed up";
+"men_backupInfo" = "If you don’t back up the mnemonic phrase, you will permanently lose the wallet and all assets if you lost the device, had unknown hardware failure, uninstalled the app, erased the app data, or encountered other irreversible situations. You will not be able to recover your assets.";
+"men_buckupnow" = "Back up now";
+"men_backuporder" = "Please select the words in the correct order of your mnemonic phrase";
+"men_error" = "Invalid mnemonic phrase, please try again";
+"location" = "ONTO requests to access your location";
+"updateinfo" = "Release Notes:\n 1. Added support for Fantom chain.\n 2. Added support for Gnosis chain.\n 3. Added prevention of screenshots of the mnemonic phrase.\n 4. Added alert message for mnemonic phrase backup.\n 5. Improved mnemonic phrase verification.\n 6. Added auto-suggestion in the mnemonic phrase library.";
