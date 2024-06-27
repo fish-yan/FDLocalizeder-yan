@@ -141,6 +141,27 @@ typedef NS_ENUM(NSInteger , CXInteractionType)
     [self _dataFactoryWithLanguages:languages_2 language:nil codes:arrCodes.copy values:nil interactionType:(interactionType)];
 }
 
+- (void)parseFileWithResult:(NSDictionary *)result {
+    for (NSString *path in self.marrLanguagePaths) {
+        NSData *data = [NSData dataWithContentsOfFile:path];
+        NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+        NSMutableDictionary *mutDict = [NSMutableDictionary dictionaryWithDictionary:dict];
+        NSMutableDictionary *stringDict = [NSMutableDictionary dictionaryWithDictionary:mutDict[@"strings"]];
+        [stringDict addEntriesFromDictionary:result];
+        mutDict[@"strings"] = stringDict;
+        
+        // save
+        NSData *newData = [NSJSONSerialization dataWithJSONObject:mutDict options:NSJSONWritingSortedKeys error:nil];
+        [newData writeToFile:path atomically:YES];
+        self.addLanguageCount = 1;
+        self.consoleVM.strConsole = @"All Language Is Added";
+        self.isAdding = NO;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.mainVC.addLocalizeButton.enabled = YES;
+        });
+    }
+}
+
 - (void)parseFileWithLanguage:(NSString *)language
                         codes:(NSArray *)codes
                        values:(NSArray *)values

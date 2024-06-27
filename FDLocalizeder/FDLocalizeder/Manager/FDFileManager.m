@@ -9,6 +9,7 @@
 #import "FDFileManager.h"
 #import "MPTask.h"
 #import "FDXMLFileManager.h"
+#import "FDPredicateManager.h"
 
 char Language_Vertical = 'B';
 NSInteger Language_Horizontal = 1;
@@ -257,8 +258,18 @@ NSInteger MaxBotton = 2000;
         NSArray *languages = [xmlManager parsFilehorizontal:Language_Horizontal left:Language_Vertical>row_left? Language_Vertical:row_left right:row_right limit:isLimit];
         
         NSArray *codes = [xmlManager parsFileCodeVertical:Code_Vertical top:Code_Horizontal > row_top? Code_Horizontal:row_top bottom:row_bottom limit:isLimit];
+        NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+        for (NSString *code in codes) {
+            NSMutableDictionary *codeDict = [NSMutableDictionary dictionary];
+            codeDict[@"extractionState"] = @"migrated";
+            NSMutableDictionary *localizationDict = [NSMutableDictionary dictionary];
+            codeDict[@"localizations"] = localizationDict;
+            dict[code] = codeDict;
+        }
+        NSString *path = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"LanguageBindFile.plist"];
+        NSDictionary *supportLanguages = [[NSMutableDictionary alloc] initWithContentsOfFile:path];
         
-        
+        NSLog(@"languages: %@", supportLanguages);
         // 从左往右执行verticalRow
         while(YES) {
             
@@ -270,38 +281,63 @@ NSInteger MaxBotton = 2000;
                 break;
             }
             
-            
-            
             // code
             if (verticalRow != Code_Vertical) {
                 
                 NSString *lan = [xmlManager parsRow:verticalRow :Language_Horizontal];
+                if (!lan) {
+                    break;
+                }
+                NSString *lanKey = nil;
+                for (NSString *key in supportLanguages) {
+                    NSArray *values = supportLanguages[key];
+//                    NSLog(@"values: %@--%@", values, lan);
+                    if ([values containsObject:lan]) {
+                        lanKey = key;
+                        break;
+                    }
+                }
+                
+                if (!lanKey) {
+                    verticalRow ++;
+                    continue;
+                }
+                
                 // 获取一排内容
                 NSArray *arrayContents = [xmlManager parsFileVertical:verticalRow top:horizontalRow bottom:row_bottom limit:isLimit];
                 NSLog(@"=================   %@",arrayContents);
-                if (!arrayContents.count || !lan) {
-                    if ([fileManager.delegate respondsToSelector:@selector(parseFinish)]) {
-                        [fileManager.delegate parseFinish];
-                    }
+                if (!arrayContents.count) {
                     break;
                 }
                 
-                
-                
-                if ([fileManager.delegate respondsToSelector:@selector(parseFileWithLanguage:codes:values:)]) {
-                    
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        [fileManager.delegate parseFileWithLanguage:[lan lowercaseString] codes:codes values:arrayContents];
-                    });
-                    
+                if (codes.count != arrayContents.count) {
+                    NSLog(@"文档内容有缺失: codes: %@, values: %@", codes, arrayContents);
+                    break;
                 }
                 
-                // 直接抛出结果
+                for (int i = 0; i < codes.count; i++) {
+                    NSString *code = codes[i];
+                    NSString *value = arrayContents[i];
+                    dict[code][@"localizations"][lanKey] = @{
+                        @"stringUnit": @{
+                            @"state": @"translated",
+                            @"value": value
+                        }
+                    };
+                }
             }
             
             verticalRow ++;
         }
-        
+        NSLog(@"result: %@", dict);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if ([fileManager.delegate respondsToSelector:@selector(parseFileWithResult:)]) {
+                [fileManager.delegate parseFileWithResult:dict];
+            }
+            if ([fileManager.delegate respondsToSelector:@selector(parseFinish)]) {
+                [fileManager.delegate parseFinish];
+            }
+        });
         NSLog(@"已删除");
         // 循环结束后删除临时文件
         [fileManager.fileManager removeItemAtPath:fileManager.localFile error:nil];

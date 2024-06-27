@@ -31,6 +31,9 @@
                         codes:(NSArray *)codes
                        values:(NSArray *)values;
 
+// ⑤
+- (void)parseFileWithResult:(NSDictionary *)result;
+
 // ⑥
 - (void)parseException:(NSException *)exception;
 

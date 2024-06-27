@@ -67,40 +67,18 @@
     BOOL isExist = [self.fileManger fileExistsAtPath:path isDirectory:&isDir];
     if (isExist) {
         // 2. 判断是不是目录
-        if (isDir) {
-            NSError *error;
-            
-//            BOOL result = [self.fileManger judg];
-                        
-            NSArray * dirArray = [self.fileManger contentsOfDirectoryAtPath:path error:&error];
-            NSString * subPath = nil;
-            
-            
-            if ([[path lastPathComponent] hasSuffix:@".lproj"]) {
-                
-                BOOL hasStringFile = NO;
-                for (NSString * str in dirArray) {
-                    
-                    if ([str hasSuffix:@".strings"]) {
-                        [self.localizeNames addObject:[str componentsSeparatedByString:@"."][0]];
-                        hasStringFile = YES;
-                    }
-                }
-                
-                if (hasStringFile) {
-                    [self.languagesPathsArray addObject:path];
-                }
+        if (!isDir) {
+            NSString *fileComponent = [path lastPathComponent];
+            if ([fileComponent hasSuffix:@".xcstrings"]) {
+                [self.localizeNames addObject:[fileComponent componentsSeparatedByString:@"."][0]];
+                [self.languagesPathsArray addObject:path];
             }
-            else
-            {
-                for (NSString * str in dirArray) {
-                    
-                    subPath  = [path stringByAppendingPathComponent:str];
-                    BOOL issubDir = NO;
-                    [self.fileManger fileExistsAtPath:subPath isDirectory:&issubDir];
-                    [self getFiles:subPath];
-                }
-                
+        } else {
+            NSError *error;
+            NSArray * dirArray = [self.fileManger contentsOfDirectoryAtPath:path error:&error];
+            for (NSString * str in dirArray) {
+                NSString *subPath  = [path stringByAppendingPathComponent:str];
+                [self getFiles:subPath];
             }
         }
     }else{
