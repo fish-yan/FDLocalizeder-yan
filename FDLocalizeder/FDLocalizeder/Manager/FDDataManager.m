@@ -262,8 +262,15 @@
             NSString *patt = [NSString stringWithFormat:@"\"%@\"\\s*=\\s*\"%@\"\\s*;\n?", obj, value];
             NSString *delString = [CXRegexHelper getStringWithRegex:patt oriString:content];
             
+            NSString *patt2 = [NSString stringWithFormat:@"%@\\s*=\\s*\"%@\"\\s*;\n?", obj, value];
+            NSString *delString2 = [CXRegexHelper getStringWithRegex:patt2 oriString:content];
+            
             if (delString && delString.length) {
                 [delArray addObject:delString];
+            }
+            
+            if  (delString2 && delString2.length) {
+                [delArray addObject:delString2];
             }
             
         }];
