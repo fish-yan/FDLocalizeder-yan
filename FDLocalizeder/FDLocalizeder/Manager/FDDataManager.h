@@ -9,7 +9,8 @@
 #import <Foundation/Foundation.h>
 
 @interface FDDataManager : NSObject
-
+@property (nonatomic, strong) NSMutableArray *allKeys;
+@property (nonatomic, assign) BOOL isMatched;
 + (instancetype)share;
 
 - (void)writeToFile:(NSString *)filePath

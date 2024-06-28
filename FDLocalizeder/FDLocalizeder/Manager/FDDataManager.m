@@ -39,6 +39,19 @@
             content:(NSString *)content
              result:(void(^)(BOOL result))result
 {
+    if (self.isMatched) {
+        return;
+    } else {
+        self.isMatched = YES;
+    }
+    NSDictionary *dicContent = [NSDictionary dictionaryWithContentsOfFile:filePath];
+    self.allKeys = [NSMutableArray arrayWithArray:dicContent.allKeys];
+    NSString *onto = filePath.stringByDeletingLastPathComponent.stringByDeletingLastPathComponent.stringByDeletingLastPathComponent;
+    [self checkWithFilePath:onto];
+    NSLog(@"keys: %@", self.allKeys);
+    NSLog(@"finish");
+    return;
+    
     // 排他性处理
     if (existingCode && [existingCode allKeys].count) {
         NSDictionary *dicContent = [NSDictionary dictionaryWithContentsOfFile:filePath];
@@ -134,6 +147,38 @@
 //    }else if (re) {
 //        result(YES);
 //    }
+}
+
+- (void)checkWithFilePath:(NSString *)path {
+    if ([path hasSuffix:@"MultiChains"] || [path hasSuffix:@"Source"]) {
+        return;
+    }
+    NSLog(@"checkPath: %@", path);
+    BOOL isDir = NO;
+    BOOL isExist = [NSFileManager.defaultManager fileExistsAtPath:path isDirectory:&isDir];
+    NSError *error;
+    NSArray * dirArray = [NSFileManager.defaultManager contentsOfDirectoryAtPath:path error:&error];
+    NSMutableArray *arr = [NSMutableArray arrayWithArray:self.allKeys];
+    if (isExist) {
+        if (isDir) {
+            for (NSString * str in dirArray) {
+                NSString *subPath  = [path stringByAppendingPathComponent:str];
+                [self checkWithFilePath:subPath];
+            }
+        } else {
+            if ([path hasSuffix:@".m"] || [path hasSuffix:@".swift"]) {
+                NSData *data = [NSData dataWithContentsOfFile:path];
+                NSString *content = [[NSString alloc]initWithData:data encoding:(NSUTF8StringEncoding)];
+                for (NSString *key in arr) {
+                    NSString *localizedString = [NSString stringWithFormat:@"\"%@\"", key];
+                    if ([content containsString:localizedString]) {
+                        [self.allKeys removeObject:key];
+                    }
+                }
+            }
+        }
+    }
+        
 }
 
 
