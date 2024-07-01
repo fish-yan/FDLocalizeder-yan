@@ -39,16 +39,17 @@
             content:(NSString *)content
              result:(void(^)(BOOL result))result
 {
-    if (self.isMatched) {
-        return;
-    } else {
-        self.isMatched = YES;
-    }
+//    if (self.isMatched) {
+//        return;
+//    } else {
+//        self.isMatched = YES;
+//    }
     NSDictionary *dicContent = [NSDictionary dictionaryWithContentsOfFile:filePath];
     self.allKeys = [NSMutableArray arrayWithArray:dicContent.allKeys];
     NSString *onto = filePath.stringByDeletingLastPathComponent.stringByDeletingLastPathComponent.stringByDeletingLastPathComponent;
-    [self checkWithFilePath:onto];
-    NSLog(@"keys: %@", self.allKeys);
+    [self checkRepeatValue:dicContent path:filePath];
+//    [self checkWithFilePath:onto];
+//    NSLog(@"keys: %@", self.allKeys);
     NSLog(@"finish");
     return;
     
@@ -147,6 +148,24 @@
 //    }else if (re) {
 //        result(YES);
 //    }
+}
+
+- (void)checkRepeatValue:(NSDictionary *)dict path:(NSString *)path {
+    NSMutableArray *repeatKeys = [NSMutableArray array];
+    NSMutableArray *repeatValues = [NSMutableArray array];
+    NSMutableArray *filterValues = [NSMutableArray array];
+    for (NSString *key in dict) {
+        NSString *value = dict[key];
+        if ([filterValues containsObject:value]) {
+            [repeatKeys addObject:key];
+            if (![repeatValues containsObject:value]) {
+                [repeatValues addObject:value];
+            }
+        } else {
+            [filterValues addObject:value];
+        }
+    }
+    NSLog(@"path:%@\nrepeatKeys: %@\nrepeatValues: %@", path, repeatKeys, repeatValues);
 }
 
 - (void)checkWithFilePath:(NSString *)path {
