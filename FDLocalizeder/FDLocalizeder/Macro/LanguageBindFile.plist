@@ -119,11 +119,12 @@
 		<string>tw繁体中文</string>
 		<string>tw</string>
 		<string>繁體中文Chinese(traditional)</string>
-		<string>中文-final</string>
+		<string>繁体中文</string>
 	</array>
 	<key>zh-Hans</key>
 	<array>
 		<string>中文-final</string>
+		<string>中文</string>
 		<string>zh-Hans</string>
 	</array>
 	<key>ko</key>
