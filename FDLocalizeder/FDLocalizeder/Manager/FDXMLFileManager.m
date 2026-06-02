@@ -79,15 +79,15 @@
     NSMutableArray *marr = [NSMutableArray array];
     
     NSString *flag = [NSString stringWithFormat:@"%c",verticalRow];
-    NSString *nextFlag = [NSString stringWithFormat:@"%c", verticalRow + 1];
+//    NSString *nextFlag = [NSString stringWithFormat:@"%c", verticalRow + 1];
     for (NSInteger i = row_top; i <= row_bottom; i ++) {
         NSString *content = [[_firstWorksheet cellForCellReference:[NSString stringWithFormat:@"%@%lu", flag, i]] stringValue];
-        NSString *nextContent = [[_firstWorksheet cellForCellReference:[NSString stringWithFormat:@"%@%lu", nextFlag, i]] stringValue];
+//        NSString *nextContent = [[_firstWorksheet cellForCellReference:[NSString stringWithFormat:@"%@%lu", nextFlag, i]] stringValue];
         
         // 如果语言行为空则跳过
-        if (nextContent.length == 0) {
-            continue;
-        }
+//        if (nextContent.length == 0) {
+//            continue;
+//        }
         
         // 非限制情况下进行空判断
         if (!isLimit && content.length == 0) {

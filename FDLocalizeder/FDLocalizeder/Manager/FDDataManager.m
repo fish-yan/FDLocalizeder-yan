@@ -312,7 +312,7 @@
     NSMutableDictionary *mdicExitCode = @{}.mutableCopy;
     
     NSMutableString *msting = [NSMutableString string];
-    
+    NSLog(@"codes: %@", codes);
     if (codeComment.length && codes.count && values.count) {
         [msting appendFormat:@"%@\n",codeComment];
     }
@@ -331,6 +331,7 @@
         }
         else if (code.length && value.length) {
             NSString *content = [NSString stringWithFormat:@"%@ = \"%@\";\n",code, value];
+            NSLog(@"content: %@", content);
             [msting appendString:content];
         }
     }
